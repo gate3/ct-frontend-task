@@ -1,10 +1,17 @@
 import React from 'react';
-import {Container, Header} from "semantic-ui-react";
+import {Header} from "semantic-ui-react";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from "react-router-dom";
 
 const App = () => (
-    <Container>
-
-    </Container>
+    <Router>
+        <Switch>
+            <Route path="/" render={() => <Header as="h1"> Placeholder </Header>} />
+        </Switch>
+    </Router>
 );
 
 export default App;
