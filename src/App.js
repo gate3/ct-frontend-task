@@ -1,11 +1,11 @@
 import React from 'react';
 import {
     BrowserRouter as Router,
-    Switch,
-    Route
+    Switch
 } from "react-router-dom";
 import ErrorBoundary from "./components/error-boundary";
-import Login from "./components/auth/login";
+import {FirebaseAuthConsumer} from "@react-firebase/auth";
+import AppRoutes from './app-routes';
 
 const InlineStyle = () => (
     <style>
@@ -24,9 +24,12 @@ const App = () => (
             <Switch>
                 <ErrorBoundary>
                     <div className="main-container">
-                        <Route path="/" render={() =>(
-                            <Login />
-                        )} />
+                        <FirebaseAuthConsumer>
+                            {(firebaseAuthObject) => (
+                                // 🚀 - To keep the AppJs clean, the routes are declared elsewhere and called as a single function here
+                                AppRoutes(firebaseAuthObject)
+                            )}
+                        </FirebaseAuthConsumer>
                     </div>
                 </ErrorBoundary>
             </Switch>
