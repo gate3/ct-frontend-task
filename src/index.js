@@ -6,11 +6,17 @@ import store from './store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css'
+import firebase from "firebase/app";
+import "firebase/auth";
+import {FirebaseAuthProvider} from "@react-firebase/auth";
+import FirebaseConfig from "./services/auth/firebase-config";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+        <FirebaseAuthProvider firebase={firebase} {...FirebaseConfig}>
+            <App />
+        </FirebaseAuthProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
