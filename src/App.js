@@ -1,17 +1,33 @@
 import React from 'react';
-import {Header} from "semantic-ui-react";
 import {
     BrowserRouter as Router,
     Switch,
     Route
 } from "react-router-dom";
 import ErrorBoundary from "./components/error-boundary";
+import Login from "./components/auth/login";
+
+const InlineStyle = () => (
+    <style>
+        {`
+            div.main-container {
+              background-color: #f1f1f1;
+            }
+        `}
+    </style>
+);
+
 
 const App = () => (
         <Router>
+            <InlineStyle />
             <Switch>
                 <ErrorBoundary>
-                    <Route path="/" render={() =><Header as="h1"> Placeholder </Header>} />
+                    <div className="main-container">
+                        <Route path="/" render={() =>(
+                            <Login />
+                        )} />
+                    </div>
                 </ErrorBoundary>
             </Switch>
         </Router>

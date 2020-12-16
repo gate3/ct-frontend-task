@@ -1,35 +1,36 @@
 import React from 'react';
-import { render, screen, fireEvent, waitForElement } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import Login from "../index";
+import {LoginErrorMessages} from "../login-constants";
 
+// Arrange
 const userLoginData = {
     username: 'doyinolarewaju@gmail.com',
     password: 'password'
 };
 const onSubmit = jest.fn();
 const errorMessages = {
-    usernameError: 'Username field is required!',
-    passwordError: 'Password field is required!'
+    usernameError: LoginErrorMessages.emptyUsername,
+    passwordError: LoginErrorMessages.emptyPassword
 };
 
 
 describe('<Login />', () => {
-    beforeEach(() => {
-        // Arrange
-        render(<Login onSubmit={onSubmit} />)
-    });
+    beforeEach(() => render(<Login onSubmit={onSubmit} />));
+    afterEach(() => jest.clearAllMocks());
+
     it('should render the unconnected <Login /> component without the app crashing.', function () {
         render(<Login />)
     });
 
     it('should display an error if username and password fields are empty and the user should not be able to submit the form', async () => {
         // Act
-        await waitForElement(async () => {
+        await act(async () => {
             await fireEvent.submit(screen.getByRole('button'));
         });
 
         // Assert
-        await waitForElement(async () => {
+        await act(async () => {
             expect(screen.getByText(errorMessages.usernameError)).toBeInTheDocument();
             expect(screen.getByText(errorMessages.passwordError)).toBeInTheDocument()
         });
@@ -39,20 +40,19 @@ describe('<Login />', () => {
     });
 
     it('should display an error if username field is empty and the user should not be able to submit the form', async () => {
-        //Arrange
+        // Act
         fireEvent.input(screen.getByLabelText(/password/i), {
             target: {
                 value: userLoginData.password
             }
         });
 
-        // Act
-        await waitForElement(async () => {
+        await act(async () => {
             await fireEvent.submit(screen.getByRole('button'));
         });
 
         // Assert
-        await waitForElement(async () => {
+        await act(async () => {
             expect(screen.getByText(errorMessages.usernameError)).toBeInTheDocument();
         });
         expect(onSubmit).toHaveBeenCalledTimes(0);
@@ -61,20 +61,19 @@ describe('<Login />', () => {
     });
 
     it('should display an error if password field is empty and the user should not be able to submit the form', async () => {
-        // Arrange
+        // Act
         fireEvent.input(screen.getByLabelText(/username/i), {
             target: {
                 value: userLoginData.username
             }
         });
 
-        // Act
-        await waitForElement(async () => {
+        await act(async () => {
             await fireEvent.submit(screen.getByRole('button'));
         });
 
         // Assert
-        await waitForElement(async () => {
+        await act(async () => {
             expect(screen.getByText(errorMessages.passwordError)).toBeInTheDocument();
         });
         expect(onSubmit).toHaveBeenCalledTimes(0);
@@ -83,7 +82,7 @@ describe('<Login />', () => {
     });
 
     it('should be able to submit their email and password by clicking the submit button', async () => {
-        // Arrange
+        // Act
         fireEvent.input(screen.getByLabelText(/username/i), {
             target: {
                 value: userLoginData.username
@@ -95,8 +94,7 @@ describe('<Login />', () => {
             }
         });
 
-        // Act
-        await waitForElement(async () => {
+        await act(async () => {
             await fireEvent.submit(screen.getByRole('button'));
         });
 
