@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from "@testing-library/react";
-import OrdersList from "../index";
+import OrdersListView from "../OrderListView";
 
 const listOfOrders = [
     {
@@ -22,12 +22,12 @@ const listOfOrders = [
 ];
 const viewOrderFunc = jest.fn();
 
-describe('<OrdersList />', () => {
-    beforeEach(() => render(<OrdersList listOfOrders={listOfOrders} />));
+describe('<OrdersListView />', () => {
+    beforeEach(() => render(<OrdersListView listOfOrders={listOfOrders} />));
     afterEach(() => jest.clearAllMocks());
 
-    it('should render the unconnected <OrdersList /> component without the app crashing.', () => {
-        render(<OrdersList viewOrderFunc={viewOrderFunc}/>)
+    it('should render the unconnected <OrdersListView /> component without the app crashing.', () => {
+        render(<OrdersListView viewOrderFunc={viewOrderFunc}/>)
     });
 
     it('should display a list of orders that match the number of orders passed in as props.', () => {
