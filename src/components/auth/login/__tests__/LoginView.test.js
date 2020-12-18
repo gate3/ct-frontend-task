@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, act } from "@testing-library/react";
-import Login from "../index";
+import Login, {LoginView} from "../index";
 import {LoginErrorMessages} from "../login-constants";
 
 // Arrange
@@ -15,12 +15,12 @@ const errorMessages = {
 };
 
 
-describe('<Login />', () => {
-    beforeEach(() => render(<Login onSubmit={onSubmit} />));
+describe('<LoginView />', () => {
+    beforeEach(() => render(<LoginView onSubmit={onSubmit} />));
     afterEach(() => jest.clearAllMocks());
 
-    it('should render the unconnected <Login /> component without the app crashing.', function () {
-        render(<Login />)
+    it('should render the unconnected <LoginView /> component without the app crashing.', function () {
+        render(<LoginView />)
     });
 
     it('should display an error if username and password fields are empty and the user should not be able to submit the form', async () => {
