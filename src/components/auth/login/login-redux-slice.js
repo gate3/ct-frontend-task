@@ -24,11 +24,26 @@ const loginSlice = createSlice({
            state.loading = false;
            state.hasErrors = true;
            state.responsePayload = payload;
+       },
+       initiateUserLogout: (state) => {
+           state.loading = true;
+       },
+       userLogoutSuccess: (state, {payload}) => {
+           state.loading = false;
+           state.responsePayload = payload;
+       },
+       userLogoutError: (state, {payload}) => {
+           state.loading = false;
+           state.hasErrors = true;
+           state.responsePayload = payload;
        }
    }
 });
 
-export const {initiateUserLogin, userLoginSuccess, userLoginError} = loginSlice.actions;
+export const {
+    initiateUserLogin, userLoginSuccess, userLoginError,
+    initiateUserLogout, userLogoutSuccess, userLogoutError
+} = loginSlice.actions;
 
 export default loginSlice.reducer;
 
@@ -40,7 +55,20 @@ export function userLogin ({ email, password }) {
             const loggedInUser = await AuthService.loginUserWithCredentials(email, password);
             dispatch(userLoginSuccess(loggedInUser))
         }catch (e) {
-            dispatch(userLoginError(e))
+            dispatch(userLoginError(e.message))
+        }
+    }
+}
+
+export function userLogout () {
+    return async dispatch => {
+        dispatch(initiateUserLogout());
+
+        try{
+            const logoutResponse = await AuthService.logoutUser();
+            dispatch(userLogoutSuccess(logoutResponse))
+        }catch (e) {
+            dispatch(userLogoutError(e.message))
         }
     }
 }

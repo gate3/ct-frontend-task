@@ -6,3 +6,10 @@ export const LoginErrorMessages = {
 export const ReduxActions = {
   LOGIN: 'login'
 };
+
+export const MockUserData = {
+    userLoginData: {
+        username: 'doyinolarewaju@gmail.com',
+        password: 'password'
+    }
+}
