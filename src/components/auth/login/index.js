@@ -9,7 +9,6 @@ const Login = () => {
     const {
         loading,
         hasErrors,
-        responsePayload
     } = useSelector(state => state.login);
 
     const onLoginFormsubmit = (data) => {

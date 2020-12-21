@@ -13,7 +13,6 @@ const OrdersList = () => {
     }, [dispatch]);
     const {
         loading,
-        hasErrors,
         responsePayload
     } = useSelector(state => state.orders);
 

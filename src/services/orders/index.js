@@ -6,6 +6,8 @@ const getOrders = (callback, limit = 50, orderByField = 'bookingDate') => {
     return ordersRef.limit(limit).orderBy(orderByField).onSnapshot(callback);
 };
 
-export default {
+const OrdersApi = {
     getOrders
-}
+};
+
+export default OrdersApi
