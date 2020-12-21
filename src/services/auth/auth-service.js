@@ -8,9 +8,14 @@ const logoutUser = () => (
     firebase.auth().signOut()
 );
 
+const isUserLoggedIn = () => (
+    firebase.auth().currentUser != null
+);
+
 const AuthService = {
     loginUserWithCredentials,
-    logoutUser
+    logoutUser,
+    isUserLoggedIn
 };
 
 export default AuthService;
