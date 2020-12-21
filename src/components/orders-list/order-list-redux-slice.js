@@ -41,13 +41,10 @@ export function fetchOrders () {
             const ordersCallback = function (snapshot) {
                 const orders = [];
                 snapshot.forEach( order => {
-                    console.log(order.data(), order.id);
-                    orders.push({
-                        ...order.data(),
-                        id: order.id
-                    })
+                    const orderItem = order.data();
+                    const orderId = orderItem.uid == null ? order.id : orderItem.uid;
+                    if (orderId!= null) orders.push(orderItem);
                 });
-                console.log(orders);
                 dispatch(fetchOrdersSuccess(orders))
             };
             OrdersApi.getOrders(ordersCallback, limit);

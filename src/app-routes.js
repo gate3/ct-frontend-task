@@ -4,6 +4,7 @@ import {
 } from "react-router-dom";
 import Login from "./components/auth/login";
 import OrdersList from "./components/orders-list";
+import OrderItemEdit from "./components/orders-list/OrderItemEdit";
 
 const AppRoutes =  ({isUserLoggedIn}) => {
     if (!isUserLoggedIn) {
@@ -13,7 +14,11 @@ const AppRoutes =  ({isUserLoggedIn}) => {
     }
     return (
         <>
-            <Route path="/" render={() => <OrdersList /> }/>
+            <Route exact path="/:orderId" render={({location}) => {
+                console.log(location.state);
+                return <OrderItemEdit order={location.state} />
+            } }/>
+            <Route exact path="/" render={() => <OrdersList /> }/>
         </>
     )
 };
