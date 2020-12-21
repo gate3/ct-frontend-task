@@ -5,7 +5,7 @@ The repository contains a task to build an app that helps manage orders. The app
 # Demo
 You can check out a hosted version of the app here
 
-
+https://ct-frontend-task-hhwvycfs8.vercel.app/
 
 # Things to watch out for 
 
