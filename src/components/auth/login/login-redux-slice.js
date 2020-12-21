@@ -53,7 +53,27 @@ export function userLogin ({ email, password }) {
 
         try{
             const loggedInUser = await AuthService.loginUserWithCredentials(email, password);
-            dispatch(userLoginSuccess(loggedInUser))
+            const {
+                user: {
+                    displayName,
+                    email: userEmail, // Rename to avoid name clash
+                    emailVerified,
+                    isAnonymous,
+                    uid,
+                    refreshToken,
+                }
+            } = loggedInUser;
+
+            const loggedInuserData = {
+                displayName,
+                email: userEmail,
+                emailVerified,
+                isAnonymous,
+                uid,
+                refreshToken,
+            };
+
+            dispatch(userLoginSuccess(loggedInuserData))
         }catch (e) {
             dispatch(userLoginError(e.message))
         }
