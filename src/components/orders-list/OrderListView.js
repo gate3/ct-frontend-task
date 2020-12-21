@@ -2,8 +2,9 @@ import React from 'react';
 import { Table } from 'semantic-ui-react'
 import OrderItem from "./OrderItem";
 
-const OrdersListView = ({listOfOrders = [], viewOrderFunc}) => (
-    <>
+const OrdersListView = ({listOfOrders = [], viewOrderFunc}) => {
+    const ordersList = Array.isArray(listOfOrders) ? listOfOrders : [];
+    return <>
         <Table padded="very" striped>
             <Table.Header>
                 <Table.Row>
@@ -17,9 +18,9 @@ const OrdersListView = ({listOfOrders = [], viewOrderFunc}) => (
             </Table.Header>
             <Table.Body>
                 {
-                    listOfOrders.map((order, itemNumber) => {
+                    ordersList.map((order, itemNumber) => {
                         const orderDate = new Date(order.bookingDate);
-                        const bookingDate = `${orderDate.getDate()}.${orderDate.getMonth() + 1}.${orderDate.getFullYear()}`;
+                        const bookingDate = isNaN(orderDate.getTime()) ? '' : `${orderDate.getDate()}.${orderDate.getMonth() + 1}.${orderDate.getFullYear()}`;
                         return <OrderItem
                             orderItem={order}
                             bookingDate={bookingDate}
@@ -33,6 +34,6 @@ const OrdersListView = ({listOfOrders = [], viewOrderFunc}) => (
             </Table.Body>
         </Table>
     </>
-);
+};
 
 export default OrdersListView
