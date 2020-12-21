@@ -43,7 +43,7 @@ export function fetchOrders () {
                 snapshot.forEach( order => {
                     const orderItem = order.data();
                     const orderId = orderItem.uid == null ? order.id : orderItem.uid;
-                    if (orderId!= null) orders.push(orderItem);
+                    if (orderId!= null && orderItem.customer != null) orders.push(orderItem);
                 });
                 dispatch(fetchOrdersSuccess(orders))
             };

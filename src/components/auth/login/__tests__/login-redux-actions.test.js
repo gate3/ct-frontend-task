@@ -43,14 +43,8 @@ const expectedAuthActions = {
 };
 
 const mockUserData = {
-    additionalUserInfo: {
-        isNewUser: false,
-        providerId: "password"
-    },
-    credential: null,
-    operationType: "signIn",
     user: {
-        displayName: null,
+        displayName: 'SomeDisplayName',
         email: "coding-challenge@construyo.de",
         emailVerified: false,
         isAnonymous: false,
@@ -64,7 +58,7 @@ const mockErrorData = {
 };
 
 describe('User Auth Actions', () => {
-    afterEach(() => jest.clearAllMocks());
+    afterAll(() => jest.clearAllMocks());
 
     describe('User Login Actions', () => {
         it('should call the userLogin function which should fire off the initiateLogin action and login success action to simulate a successful login.', async () => {
@@ -80,9 +74,10 @@ describe('User Auth Actions', () => {
             );
 
             const actualActions = store.getActions();
+            console.log({actualActions}, actualActions[1]);
             expect(actualActions.length).toBe(2);
             expect(actualActions[0]).toMatchObject(expectedAuthActions.initiateUserLogin());
-            expect(actualActions[1]).toMatchObject(expectedAuthActions.userLoginSuccessAction(mockUserData))
+            expect(actualActions[1]).toMatchObject(expectedAuthActions.userLoginSuccessAction(mockUserData.user))
         });
         it('should call the userLogin function which should fire off the initiateLogin action and login error action for a failed login.', async () => {
             const loginErrorMock = jest.fn(() => Promise.reject(new Error(mockErrorData.loginError)));

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Segment, Form, Button, Grid } from 'semantic-ui-react';
+import {Segment, Form, Button, Grid, Icon} from 'semantic-ui-react';
+import {Link} from "react-router-dom";
 
 const InlineStyle = () => (
     <style>
@@ -15,7 +16,11 @@ const InlineStyle = () => (
             -ms-transform: translateY(-50%);
             transform: translateY(-50%);
         }
-        
+        .icon-container {
+            margin-bottom: 2%;
+            display:flex;
+            justify-content: flex-end;
+        }
     `}
     </style>
 );
@@ -41,6 +46,11 @@ const OrderItemEdit = ({ order }) => {
         <Grid centered columns={2}>
             <Grid.Column>
                 <Segment raised className="ui-centered-raised-card">
+                    <Grid.Column className="icon-container">
+                        <Link to="/">
+                            <Icon name="close" bordered circular />
+                        </Link>
+                    </Grid.Column>
                     <Form>
                         <Form.Group widths='equal'>
                             <Form.Input fluid label='Title' value={title} />
