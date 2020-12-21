@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
     BrowserRouter as Router,
     Switch
@@ -6,7 +6,6 @@ import {
 import ErrorBoundary from "./components/error-boundary";
 import {FirebaseAuthConsumer} from "@react-firebase/auth";
 import AppRoutes from './app-routes';
-import AuthService from './services/auth/auth-service';
 
 const InlineStyle = () => (
     <style>
@@ -19,28 +18,24 @@ const InlineStyle = () => (
 );
 
 const App = () => {
-    const currentUserIsLoggedIn = AuthService.isUserLoggedIn();
-    const [isUserLoggedIn, setUserLoggedIn] = useState(false);
-    useEffect( () => {
-        // The firebaseAuthObject provided by the HOC has a delay in checking if the user is logged in or not.
-        // The function implemented in the AuthService can check immediately
-        const result = AuthService.isUserLoggedIn();
-        setUserLoggedIn(result);
-    }, [currentUserIsLoggedIn]);
-
     return <Router>
         <InlineStyle/>
         <Switch>
             <ErrorBoundary>
                 <div className="main-container">
-                    {   isUserLoggedIn != null && isUserLoggedIn ?
                         <FirebaseAuthConsumer>
-                            {(firebaseAuthObject) => (
+                            {(firebaseAuthObject) => {
+                                const {isSignedIn, user, providerId} = firebaseAuthObject;
+                                const isUserLoggedIn = (isSignedIn && user != null);
+
+                                // The providerId in this case is used to determine when the app is connected to firebase.
+                                // Depending on the isUserLoggedIn property isn't good enough, because the state is false by default till the library can determine the users state.
+                                if (providerId == null) return null;
+
                                 // 🚀 - To keep the AppJs clean, the routes are declared elsewhere and called as a single function here
-                                AppRoutes({isUserLoggedIn})
-                            )}
-                        </FirebaseAuthConsumer> : null
-                    }
+                                return AppRoutes({isUserLoggedIn})
+                            }}
+                        </FirebaseAuthConsumer>
                 </div>
             </ErrorBoundary>
         </Switch>
