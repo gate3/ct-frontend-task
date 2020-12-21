@@ -3,7 +3,17 @@
 The repository contains a task to build an app that helps manage orders. The app makes use of Semantic UI for the UI design, redux toolkit for state management and uses React hooks completely without any class components.
 
 # Demo
+You can check out a hosted version of the app here
 
+
+
+# Things to watch out for 
+
+- I made use of redux toolkit, which takes care of a lot of boilerplate that I would have needed to write if i was making use of the traditional redux. I was also able to write tests for it despite sparse documentation and tutorials available.
+- I made use of React hooks and only made use functional components
+- I separated my concerns by splitting the component logic into presentational and container components. Container components are responsible for handling state and api calls while the presentational components only display data.
+- Made the code more modular by using services to perform api calls and separating the services based on functionality. This encourages code re-use and helps maintain the code better
+- The firebase connection was created using the singleton pattern
 
 # Libraries Used
 
