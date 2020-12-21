@@ -15,10 +15,9 @@ const AppRoutes =  ({isUserLoggedIn}) => {
     return (
         <>
             <Route exact path="/:orderId" render={({location}) => {
-                console.log(location.state);
                 return <OrderItemEdit order={location.state} />
             } }/>
-            <Route exact path="/" render={() => <OrdersList /> }/>
+            <Route path="/" render={() => <OrdersList /> }/>
         </>
     )
 };

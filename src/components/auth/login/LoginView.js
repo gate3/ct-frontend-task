@@ -74,7 +74,6 @@ const LoginView = ({ onSubmit, loading, loginError }) => {
                             id="password"
                         />
                         <Button
-                            onClick={() => console.log('eeee')}
                             type="submit"
                             positive
                             disabled={!username || !password}>
