@@ -7,6 +7,12 @@ You can check out a hosted version of the app here
 
 https://ct-frontend-task-hhwvycfs8.vercel.app/
 
+# Task Management
+
+Here is a trello board i used to manage the tasks
+
+https://trello.com/b/TgBzr4jV/construyo-test
+
 # Things to watch out for 
 
 - I made use of redux toolkit, which takes care of a lot of boilerplate that I would have needed to write if i was making use of the traditional redux. I was also able to write tests for it despite sparse documentation and tutorials available.
